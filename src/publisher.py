@@ -16,7 +16,7 @@ rospy.init_node("zmq_turtle_server", anonymous=True)
 rate = rospy.Rate(1) #hz
 
 def callback(data):
-    # data = data
+    # data = data.data
     # value = []
     # value.append(data.r)
     # value.append(data.g)
@@ -24,8 +24,9 @@ def callback(data):
     # pub.publish(value)
     # print(value)
     # socket.send(b"%03d" % value)
-    print(size(data))
+    # print(size(data))
     socket.send_multipart([b"%03d" % data.r, b"%03d" % data.g, b"%03d" % data.b])
+    # socket.send(b"%03d" % data)
 
 # pub = rospy.Publisher("server_pub", UInt8, queue_size=10)
 
