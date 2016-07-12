@@ -16,10 +16,9 @@ pub = rospy.Publisher("test_out", Float32, queue_size=10)
 
 
 while not rospy.is_shutdown():
-    message = socket.recv()
-    message = float(message)
+    message = socket.recv_multipart()
+    # message = float(message)
     print(message)
     # print(message*2)
     # print("in while loop")
     pub.publish(message)
-    

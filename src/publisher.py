@@ -17,10 +17,15 @@ rate = rospy.Rate(1) #hz
 
 def callback(data):
     # data = data
-    value = data.r
+    # value = []
+    # value.append(data.r)
+    # value.append(data.g)
+    # value.append(data.b)
     # pub.publish(value)
-    print("Value: %f" % value)
-    socket.send(b"%03d" % value)
+    # print(value)
+    # socket.send(b"%03d" % value)
+    print(size(data))
+    socket.send_multipart([b"%03d" % data.r, b"%03d" % data.g, b"%03d" % data.b])
 
 # pub = rospy.Publisher("server_pub", UInt8, queue_size=10)
 
