@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+# uses the turtlesim color to test taking data from ros and pushing it to zmq
+
 from __future__ import division
 import rospy
 from std_msgs.msg import String, Float32, UInt8
