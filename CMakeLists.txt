@@ -130,6 +130,8 @@ include_directories(
 
 ## Declare a C++ executable
 # add_executable(zmq_test_node src/zmq_test_node.cpp)
+add_executable(publish src/publish.cpp)
+add_executable(subscribe src/subscribe.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
@@ -139,6 +141,8 @@ include_directories(
 # target_link_libraries(zmq_test_node
 #   ${catkin_LIBRARIES}
 # )
+target_link_libraries(publish ${catkin_LIBRARIES})
+target_link_libraries(subscribe ${catkin_LIBRARIES})
 
 #############
 ## Install ##
