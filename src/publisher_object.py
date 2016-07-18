@@ -7,6 +7,7 @@ import rospy
 from std_msgs.msg import String, Float32, UInt8
 from turtlesim.msg import Color
 from sensor_msgs.msg import JointState
+from geometry_msgs.msg import Twist
 import zmq
 import cPickle as pickle
 # import mystuff
