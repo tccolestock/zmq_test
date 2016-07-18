@@ -9,6 +9,7 @@ from turtlesim.msg import Color
 from sensor_msgs.msg import JointState
 import zmq
 import cPickle as pickle
+# import mystuff
 
 context = zmq.Context()
 socket = context.socket(zmq.PUB)
