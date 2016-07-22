@@ -7,7 +7,7 @@ import zmq
 from turtlesim.msg import Color
 from sensor_msgs.msg import JointState
 # from sr_robot_msgs.msg import BiotacAll
-from geometry_msgs.msg import Twist, Polygon
+from geometry_msgs.msg import Twist, Polygon, PoseArray
 import time
 import msgpack
 from rospy_msgpack import turtlesim_msgpack
@@ -72,14 +72,14 @@ def talker3():
 
 def talker4():
     rospy.init_node("zmq_client", anonymous=True)
-    pub = rospy.Publisher("test_out", Polygon, queue_size=10)
+    pub = rospy.Publisher("test_out", PoseArray, queue_size=10)
     time.sleep(1)
     rate_handle = rospy.Rate(500) #hz
     while not rospy.is_shutdown():
         rec = socket.recv()
         msg = msgpack.loads(rec)
-        poly = Polygon()
-        state = geo_decode.polygon(msg, poly)
+        poly = PoseArray()
+        state = geo_decode.pose_array(msg, poly)
         print(poly)
         pub.publish(poly)
 

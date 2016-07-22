@@ -8,7 +8,7 @@ from std_msgs.msg import String, Float32, UInt8
 from turtlesim.msg import Color
 from sensor_msgs.msg import JointState
 # from sr_robot_msgs.msg import BiotacAll
-from geometry_msgs.msg import Twist, Polygon
+from geometry_msgs.msg import Twist, Polygon, PoseArray
 import zmq
 import msgpack
 from rospy_msgpack import sensor_msgpack
@@ -54,7 +54,7 @@ def callback3(bio):
     socket.send(packed)
 
 def callback4(poly):
-    msg = geo_encode.polygon(poly)
+    msg = geo_encode.pose_array(poly)
     print(msg)
     packed = msgpack.dumps(msg)
     socket.send(packed)
@@ -64,7 +64,7 @@ def listen():
     # rospy.Subscriber("/turtle1/cmd_vel", Twist, callback)
     # rospy.Subscriber("/joint_states", JointState, callback2)
     # rospy.Subscriber("/rh/tactile", BiotacAll, callback3)
-    rospy.Subscriber("/test_poly", Polygon, callback4)
+    rospy.Subscriber("/test_posearray", PoseArray, callback4)
     rospy.spin()
 
 if __name__ == '__main__':
