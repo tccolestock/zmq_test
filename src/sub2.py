@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-""" Provides a template for creating a ROS subscriber.
+""" Provides another template for creating a ROS subscriber.
  Subscribes to the turtlesim color and then prints the
  data. """
 
@@ -21,10 +21,13 @@ def callback(data):
     print("in callback")
     print(data)
 
-# if __name__ == '__main__':
-while not rospy.is_shutdown():
-    print("before sub")
+
+def listen():
     rospy.Subscriber("/turtle1/color_sensor", Color, callback)
     print("after sub")
-    # rospy.spin()
+
+
+if __name__ == '__main__':
+    listen()
+    rospy.spin()
     print("after spin")

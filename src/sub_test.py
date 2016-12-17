@@ -1,10 +1,19 @@
 #!/usr/bin/env python
 
-from __future__ import division # must be first __future__
+""" This example shows how to pass multiple variables to a ROS
+ Subscriber object, and how to append the received values to a
+ class object attribute.  """
+
+from __future__ import division
+
+__author__ = "Thomas Colestock"
+__version__ = "1.0.0"
+
 import rospy
+import zmq
+
 from std_msgs.msg import String, Float32, UInt8
 from turtlesim.msg import Color
-import zmq
 
 
 class fobar(object):
@@ -13,9 +22,6 @@ class fobar(object):
         self.r = []
         self.g = 0
         self.b = 0
-
-
-
 
 
 def callback(data, c):
@@ -27,14 +33,11 @@ def callback(data, c):
     print("Second in method")
     print(c.r)
     fun2()
-    # pub.publish(value)
-    # print("Value: %f" % value)
+
 
 def fun2():
     print("In other function")
     print(fo.r)
-    # x = fo.r
-    # print("x: %s" % x)
     r = fo.r
     r.append(17)
 

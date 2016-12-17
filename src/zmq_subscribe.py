@@ -1,9 +1,17 @@
 #!/usr/bin/env python
 
+""" Uses the turtlesim color to test taking data from a
+ multipart ZMQ publisher and publishing it to a ROS topic . """
+
 from __future__ import division
+
+__author__ = "Thomas Colestock"
+__version__ = "1.0.0"
+
 import rospy
-from std_msgs.msg import String, Float32, UInt8
 import zmq
+
+from std_msgs.msg import String, Float32, UInt8
 from turtlesim.msg import Color
 
 context = zmq.Context()
@@ -18,18 +26,9 @@ pub = rospy.Publisher("test_out", Color, queue_size=10)
 
 while not rospy.is_shutdown():
     message = socket.recv_multipart()
-    # message = float(message)
     print(len(message))
     color = Color()
     color.r = int(message[0])
     color.g = int(message[1])
     color.b = int(message[2])
-    # r = message[0]
-    # g = message[1]
-    # b = message[2]
-
-
-
-    # print(message*2)
-    # print("in while loop")
     pub.publish(color)

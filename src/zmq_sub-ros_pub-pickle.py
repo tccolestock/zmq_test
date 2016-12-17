@@ -1,15 +1,22 @@
 #!/usr/bin/env python
 
+""" Connects to a ZMQ socket that has received a serialized turtlesim
+ Color, then deserializes it using Pickle and publishes it to a ROS
+ topic (/test_out). """
+
 from __future__ import division
 
-import rospy
+__author__ = "Thomas Colestock"
+__version__ = "1.0.0"
+
 import time
-import zmq
 import cPickle as pickle
+
+import rospy
+import zmq
 
 from std_msgs.msg import String, Float32, UInt8
 from turtlesim.msg import Color
-from sensor_msgs.msg import JointState
 
 
 context = zmq.Context()
@@ -21,9 +28,8 @@ print("established socket")
 
 def talker():
     rospy.init_node("zmq_turtle_client", anonymous=True)
-    pub = rospy.Publisher("test_out", JointState, queue_size=10)
-    pub2 = rospy.Publisher("finger", Float32, queue_size=10)
-    time.sleep(2)
+    pub = rospy.Publisher("test_out", Color, queue_size=10)
+    time.sleep(1)
     rate_handle = rospy.Rate(500)  # hz
 
     while not rospy.is_shutdown():
@@ -31,28 +37,10 @@ def talker():
         print("received")
         data = pickle.loads(message)
         print("unpickled")
-        index = data.name.index('rh_FFJ2')
-        angle = data.position[index]
-        print(angle)
         pub.publish(data)
-        pub2.publish(angle)
         print("published")
         rate_handle.sleep()
 
-
-def talker2():
-    rospy.init_node("zmq_client", anonymous=True)
-    pub = rospy.Publisher("finger", Float32, queue_size=10)
-    time.sleep(2)
-    rate_handle = rospy.Rate(500)  # hz
-
-    while not rospy.is_shutdown():
-        msg = socket.recv()
-        msg = float(msg)
-        # data = pickle.loads(msg)
-        print(msg)
-        pub.publish(msg)
-        rate_handle.sleep()
 
 if __name__ == '__main__':
     try:

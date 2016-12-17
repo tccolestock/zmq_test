@@ -1,13 +1,23 @@
 #!/usr/bin/env python
 
+""" Not sure what is going on here... never call read()...
+ Might have been part of the Shadow Hand and Baxter pupeteering
+ project. """
+
 from __future__ import division
+
+__author__ = "Thomas Colestock"
+__version__ = "0.1.0"
+
 import rospy
-from std_msgs.msg import String, Float32, UInt8
+import time
 import zmq
+import cPickle as pickle
+
+from std_msgs.msg import String, Float32, UInt8
 from turtlesim.msg import Color
 from sensor_msgs.msg import JointState
-import cPickle as pickle
-import time
+
 
 context = zmq.Context()
 socket = context.socket(zmq.SUB)
@@ -23,7 +33,8 @@ def establish():
     time.sleep(2)
     # rate_handle = rospy.Rate(500) #hz
 
-    # while not rospy.is_shutdown():
+
+# while not rospy.is_shutdown():
 def read():
     message = socket.recv()
     print("received")
@@ -35,8 +46,9 @@ def read():
     # pub.publish(data)
     # pub2.publish(angle)
     # rate_handle.sleep()
-    broadcast(data,angle)
+    broadcast(data, angle)
     rospy.spin()
+
 
 def broadcast(data1, data2):
     pub.publish(data1)
