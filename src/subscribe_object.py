@@ -2,10 +2,11 @@
 
 from __future__ import division
 
-import rospy
 import time
-import zmq
 import cPickle as pickle
+
+import rospy
+import zmq
 
 from std_msgs.msg import String, Float32, UInt8
 from turtlesim.msg import Color
